@@ -63,7 +63,7 @@ CREATE TABLE DL_Activities (
 	fifth_num || '-' || 
 	sixth_num || '-' || 
 	seventh_num || '-' || 
-	eight_num || '-' ||
+	eighth_num || '-' ||
 	ninth_num || '-' ||
 	tenth_num || '-') STORED, /* 5 digits per every category + the five - 
 	this is kind of stupid because I can't use concat. 
@@ -82,8 +82,8 @@ CREATE TABLE DL_Activities (
 	sixth_text text,
 	seventh_num smallint constraint dl_seventh_num not null,
 	seventh_text text,
-	eight_num smallint constraint dl_eight_num not null,
-	eight_text text,
+	eighth_num smallint constraint dl_eighth_num not null,
+	eighth_text text,
 	ninth_num smallint constraint dl_ninth_num not null,
 	ninth_text text,
 	tenth_num smallint constraint dl_tenth_num not null,
@@ -94,28 +94,10 @@ CREATE TABLE DL_Activities (
 	constraint dl_act_pk primary key (id),
 	constraint dl_act_user_entry unique(user_id, user_entry),
 	constraint dl_reference unique(user_id, reference)
+	/* I might change these to deafuly 0 instead of null, but hmmm not sure */
 );
 
 /* Table for the Daily Log */
-/* So Sad doesn't work
-CREATE TABLE DL_Log (
-	/* Columns */
-	id bigint GENERATED ALWAYS AS IDENTITY,
-	user_entry int not null,
-	user_id bigint constraint acc_f_uid References GTS_Accounts(id),
-	time_start timestamptz not null,
-	time_end timestamptz not null,
-	duration interval GENERATED ALWAYS AS (time_end - time_start) STORED, /* Will need to make sure this works with python */
-	source text,
-	activity_1 varchar(59) constraint dl_act1 References DL_Activities(reference),
-	activity_2 varchar(59) constraint dl_act2 References DL_Activities(reference),
-	activity_3 varchar(59) constraint dl_act3 References DL_Activities(reference),
-	activity_4 varchar(59) constraint dl_act4 References DL_Activities(reference),
-	activity_5 varchar(59) constraint dl_act5 References DL_Activities(reference),
-	/* Constraints */
-	constraint dl_l_pk primary key (id),
-	constraint dl_l_user_entry unique(user_id, user_entry)
-); */
 CREATE TABLE DL_Log (
 	/* Columns */
 	id bigint GENERATED ALWAYS AS IDENTITY,
