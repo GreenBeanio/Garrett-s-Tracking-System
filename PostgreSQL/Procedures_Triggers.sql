@@ -70,24 +70,23 @@ begin
 	new.fourth_num, new.fifth_num, new.sixth_num, new.seventh_num,
 	new.eighth_num, new.ninth_num, new.tenth_num];
 
-	raise notice 'array : %', insert_array;
-	
 	/* First checking that there is no 0 prior to anything else */
 	FOREACH current_ind in ARRAY insert_array LOOP
 		int_index = int_index + 1;
 		if int_index = 1 then
 			last_ind = current_ind;
-			raise notice'%: %', last_ind, current_ind;
 		else
-			raise notice'%: %', last_ind, current_ind;
 			/* If the last number was 0 and the next number wasn't */
 			if last_ind = 0 AND current_ind != 0 THEN
-				raise notice 'KILL ME: %', int_index;
 				RAISE EXCEPTION 'Daily Log Activity Error: Category (>0) added after empty (0)';
 			end if;
 			last_ind = current_ind;
 		end if;
 	END LOOP;
+
+	/* Possibly add the feature to create children if they don't exist and it's a valid number */
+
+	return new; /* Don't forget to return silly */
 end;
 $$ language plpgsql;
 
@@ -96,3 +95,31 @@ CREATE or Replace TRIGGER Trig_DL_Act_Parenthood
 	BEFORE INSERT on DL_Activities
 	FOR EACH ROW
 	EXECUTE FUNCTION DL_Act_Parenthood();
+
+/* --------------------------- */
+/* Function & Trigger to Round Times */
+/* --------------------------- */
+
+/* Function to Round Times [TO THE MINUTE] (for multiple tables) */
+/* This is one that should probably be handled by the front end or back end.
+This shouldn't hurt though. I'm also setting it to round to the minute, because
+that's what I've been using before this software was created. I might change it
+to seconds in the future, but probably not now */
+CREATE or Replace FUNCTION DL_Round_Time()
+RETURNS trigger
+as $$
+declare
+	s_time timestamptz;
+	e_time timestamptz;
+begin
+	new."time_start" = date_trunc('minute', new."time_start");
+	new."time_end" = date_trunc('minute', new."time_end");
+	return new;
+end;
+$$ language plpgsql;
+
+/* Trigger for user entries on DL activites */
+CREATE or Replace TRIGGER Trig_DL_Log_Round_Time
+	BEFORE INSERT on DL_Log
+	FOR EACH ROW
+	EXECUTE FUNCTION DL_Round_Time();

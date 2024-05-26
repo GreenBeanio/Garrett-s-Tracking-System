@@ -30,3 +30,8 @@ Insert Into DL_Activities
 	seventh_num, eighth_num, ninth_num, tenth_num, label)
 	Values
 	(1, 5, 3, 0, 1, 0, 0, 0, 0, 0, 0, 'yum');
+Insert Into DL_Activities
+	(user_id, first_num, second_num, third_num, fourth_num, fifth_num, sixth_num,
+	seventh_num, eighth_num, ninth_num, tenth_num, label)
+	Values
+	(1, 5, 3, 0, 0, 0, 0, 0, 0, 0, 0, 'yum');

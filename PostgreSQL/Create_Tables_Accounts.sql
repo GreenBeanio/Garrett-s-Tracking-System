@@ -94,13 +94,17 @@ CREATE TABLE DL_Activities (
 	ninth_text text,
 	tenth_num smallint constraint dl_tenth_num not null,
 	tenth_text text,
+	/* I might change these to default 0 instead of null, but hmmm not sure */
 	label text constraint dl_label not null,
 	comment text,
 	/* Constraints */
 	constraint dl_act_pk primary key (id),
 	constraint dl_act_user_entry unique(user_id, user_entry),
-	constraint dl_reference unique(user_id, reference)
-	/* I might change these to default 0 instead of null, but hmmm not sure */
+	constraint dl_reference unique(user_id, reference),
+	/* Positive numbers only */
+	constraint dl_numbers_over_zero check (first_num >= 0 and second_num >= 0 and third_num >= 0 and fourth_num >= 0
+	and fifth_num >= 0 and sixth_num >= 0 and seventh_num >= 0 and eighth_num >= 0 and ninth_num >= 0 
+	and tenth_num >= 0)
 );
 
 /* Table for the Daily Log */
