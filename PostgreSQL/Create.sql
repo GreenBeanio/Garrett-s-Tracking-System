@@ -1,4 +1,6 @@
-/* ---------------------------*/
+/* --------------------------- */
+/* Creating the Main Database */
+/* --------------------------- */
 
 /* Creating the main database */
 CREATE database GTS;
@@ -7,7 +9,9 @@ CREATE database GTS;
 Create user gts_admin with Password 'qF=9;{k%=Dyk=CL87B0iXW:bN[:dS{Qk'; /* Obviously change the password */
 Grant All On Schema public to gts_admin;
 
-/* ---------------------------*/
+/* --------------------------- */
+/* Creating the Account & Session Components */
+/* --------------------------- */
 
 /* Table of Accounts */
 CREATE TABLE GTS_Accounts (
@@ -47,7 +51,9 @@ Create User u_accounts with Password 'V=_?#Ko(Z0X4#n2F';  /* Obviously change th
 Grant ALL on GTS_Accounts to u_accounts;
 Grant ALL on GTS_Sessions to u_accounts;
 
-/* ---------------------------*/
+/* --------------------------- */
+/* Creating the Daily Log Components */
+/* --------------------------- */
 
 /* Table for the Activities */
 CREATE TABLE DL_Activities (
@@ -65,7 +71,7 @@ CREATE TABLE DL_Activities (
 	seventh_num || '-' || 
 	eighth_num || '-' ||
 	ninth_num || '-' ||
-	tenth_num || '-') STORED, /* 5 digits per every category + the five - 
+	tenth_num) STORED, /* 5 digits per every category + the five - 
 	this is kind of stupid because I can't use concat. 
 	I might just do this back end and send it to sql */
 	first_num smallint constraint dl_first_num not null,
@@ -94,7 +100,7 @@ CREATE TABLE DL_Activities (
 	constraint dl_act_pk primary key (id),
 	constraint dl_act_user_entry unique(user_id, user_entry),
 	constraint dl_reference unique(user_id, reference)
-	/* I might change these to deafuly 0 instead of null, but hmmm not sure */
+	/* I might change these to default 0 instead of null, but hmmm not sure */
 );
 
 /* Table for the Daily Log */
@@ -122,7 +128,11 @@ CREATE TABLE DL_Log (
 	constraint dl_act2 foreign key (user_id, activity_2) References DL_Activities(user_id, reference),
 	constraint dl_act3 foreign key (user_id, activity_3) References DL_Activities(user_id, reference),
 	constraint dl_act4 foreign key (user_id, activity_4) References DL_Activities(user_id, reference),
-	constraint dl_act5 foreign key (user_id, activity_5) References DL_Activities(user_id, reference)
+	constraint dl_act5 foreign key (user_id, activity_5) References DL_Activities(user_id, reference),
+	/* Constraints for time */
+	constraint dl_end_after check (time_end > time_start),
+	constraint dl_unique_start unique(time_start),
+	constraint dl_unique_end unique(time_end)
 );
 
 /* Create Daily Log User */
