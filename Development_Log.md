@@ -1,10 +1,30 @@
-# Garrett's Tracking System
+# Garrett's Tracking System (GTS)
 
 ## Development Log
+
+[Update 2](#Update2)
 
 [Update 1](#Update1)
 
 ---
+
+<h3 id="Update2"> Update 2</h3>
+
+#### Date: 2024-05-26
+
+#### Time: 23:35 UTC-4
+
+#### Author: GreenBeanio (Garrett)
+
+#### Title: SQL Procedures & Triggers
+
+#### Description
+
+Mainly just working on SQL procedures and triggers to facilitate desired business logic.
+
+#### Changes
+
+- SQL procedures and triggers.
 
 ---
 
