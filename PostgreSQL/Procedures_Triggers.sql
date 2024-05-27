@@ -105,8 +105,80 @@ begin
 
 	raise notice 'largest : %', largest_index;
 
-	/* Don't check if it's the primary category */
+	/* Don't check if it's the primary category (no parent) */
 	if largest_index != 1 THEN
+
+		/*----- Has Parent -----*/
+		/* Huh, just realized this kind of doesn't matter because the prior check also prevents not having a parent 
+		I might need to put this one on top of the other check */
+
+		/* Checking if the parent exists */
+		select count(user_entry) /* Doesn't matter what column just need to check existence */
+		into parent_count
+		from DL_Activities
+		where (user_id = new."user_id") AND
+			(Case
+				When largest_index >= 2 THEN first_num = new."first_num" END /* Nothing else to check it wouldn't run */
+			) AND
+			(Case
+				When largest_index >= 3 THEN second_num = new."second_num" ELSE
+				second_num = 0 END
+			) AND
+			(Case
+				When largest_index >= 4 THEN third_num = new."third_num" ELSE
+				third_num = 0 END
+			) AND
+			(Case
+				When largest_index >= 5 THEN fourth_num = new."fourth_num" ELSE
+				fourth_num = 0 END
+			) AND
+			(Case
+				When largest_index >= 6 THEN fifth_num = new."fifth_num" ELSE
+				fifth_num = 0 END
+			) AND
+			(Case
+				When largest_index >= 7 THEN sixth_num = new."sixth_num" ELSE
+				sixth_num = 0 END
+			) AND
+			(Case
+				When largest_index >= 8 THEN seventh_num = new."seventh_num" ELSE
+				seventh_num = 0 END
+			) AND
+			(Case
+				When largest_index >= 9 THEN eighth_num = new."eighth_num" ELSE
+				eighth_num = 0 END
+			) AND
+			(Case
+				When largest_index = 10 THEN ninth_num = new."ninth_num" ELSE
+				ninth_num = 0 END
+			) AND (tenth_num = 0); /* The tenth should always be 0 for this test since it has no children categories */
+		raise notice 'parent : %', parent_count;
+		/* If the "parent" doesn't exist throw an error */
+		if parent_count = 0 THEN
+			/* I would like to auto populate parents if they're missing. It should only take one insert in the
+			trigger because of recursion */
+			/* RAISE EXCEPTION 'Daily Log Activity Error: No parent for the entry'; */
+			/* ---- Attempting recursive adding parents ----*/
+			/*--THIS IS A BIG WHOOPSIE INFINITE CHAIN, NEED TO IMPLEMENT A CASE SWITCH OR SOMETHING TO ONLY
+			PUT IN THE ONES BEFORE IT LIKE I DID TO SEARCH FOR PARENTS ---*/
+			Insert Into DL_Activities
+			(user_id, 
+			first_num, second_num, third_num, fourth_num, fifth_num, sixth_num,
+			seventh_num, eighth_num, ninth_num, tenth_num, 
+			first_text, second_text, third_text, fourth_text, fifth_text, sixth_text,
+			seventh_text, eighth_text, ninth_text, tenth_text,
+			label, comment)
+			Values
+			(new."user_id",
+			new."first_num", new."second_num", new."third_num", new."fourth_num", new."fifth_num", new."sixth_num",
+			new."seventh_num", new."eighth_num", new."ninth_num", new."tenth_num", 
+			new."first_text", new."second_text", new."third_text", new."fourth_text", new."fifth_text", new."sixth_text",
+			new."seventh_text", new."eighth_text", new."ninth_text", new."tenth_text",
+			'Populated By Machine Please Change', 'Populated By Machine Please Change');
+			/* ---- Attempting recursive adding parents ----*/
+		end if;
+
+		/*----- Proper Number -----*/
 		/* Check if the largest number should be smaller */
 		select count(user_entry) /* Doesn't matter what column just need to check existence */
 		into largest_number_right
@@ -163,59 +235,7 @@ begin
 			siblings and then add 1 to it, but I think I'd rather give the user the ability to verify that first */
 			RAISE EXCEPTION 'Daily Log Activity Error: Largest activity index has no older sibling (prior child in parent)';
 		end if;
-	end if;
 
-	/* Don't check if there isn't a parent */
-	/* Huh, just realized this kind of doesn't matter because the prior check also prevents not having a parent 
-	I might need to put this one on top of the other check */
-	if largest_index != 1 THEN
-		/* Checking if the parent exists */
-		select count(user_entry) /* Doesn't matter what column just need to check existence */
-		into parent_count
-		from DL_Activities
-		where (user_id = new."user_id") AND
-			(Case
-				When largest_index >= 2 THEN first_num = new."first_num" END /* Nothing else to check it wouldn't run */
-			) AND
-			(Case
-				When largest_index >= 3 THEN second_num = new."second_num" ELSE
-				second_num = 0 END
-			) AND
-			(Case
-				When largest_index >= 4 THEN third_num = new."third_num" ELSE
-				third_num = 0 END
-			) AND
-			(Case
-				When largest_index >= 5 THEN fourth_num = new."fourth_num" ELSE
-				fourth_num = 0 END
-			) AND
-			(Case
-				When largest_index >= 6 THEN fifth_num = new."fifth_num" ELSE
-				fifth_num = 0 END
-			) AND
-			(Case
-				When largest_index >= 7 THEN sixth_num = new."sixth_num" ELSE
-				sixth_num = 0 END
-			) AND
-			(Case
-				When largest_index >= 8 THEN seventh_num = new."seventh_num" ELSE
-				seventh_num = 0 END
-			) AND
-			(Case
-				When largest_index >= 9 THEN eighth_num = new."eighth_num" ELSE
-				eighth_num = 0 END
-			) AND
-			(Case
-				When largest_index = 10 THEN ninth_num = new."ninth_num" ELSE
-				ninth_num = 0 END
-			) AND (tenth_num = 0); /* The tenth should always be 0 for this test since it has no children categories */
-		raise notice 'parent : %', parent_count;
-		/* If the "parent" doesn't exist throw an error */
-		if parent_count = 0 THEN
-			/* I would like to auto populate parents if they're missing. It should only take one insert in the
-			trigger because of recursion */
-			RAISE EXCEPTION 'Daily Log Activity Error: No parent for the entry';
-		end if;
 	end if;
 	/*--------*/
 	return new; /* Don't forget to return silly */
