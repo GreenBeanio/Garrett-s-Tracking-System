@@ -166,6 +166,8 @@ begin
 	end if;
 
 	/* Don't check if there isn't a parent */
+	/* Huh, just realized this kind of doesn't matter because the prior check also prevents not having a parent 
+	I might need to put this one on top of the other check */
 	if largest_index != 1 THEN
 		/* Checking if the parent exists */
 		select count(user_entry) /* Doesn't matter what column just need to check existence */
@@ -208,6 +210,12 @@ begin
 				ninth_num = 0 END
 			) AND (tenth_num = 0); /* The tenth should always be 0 for this test since it has no children categories */
 		raise notice 'parent : %', parent_count;
+		/* If the "parent" doesn't exist throw an error */
+		if parent_count = 0 THEN
+			/* I would like to auto populate parents if they're missing. It should only take one insert in the
+			trigger because of recursion */
+			RAISE EXCEPTION 'Daily Log Activity Error: No parent for the entry';
+		end if;
 	end if;
 	/*--------*/
 	return new; /* Don't forget to return silly */
