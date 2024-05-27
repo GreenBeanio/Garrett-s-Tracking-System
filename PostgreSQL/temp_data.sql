@@ -29,9 +29,49 @@ Insert Into DL_Activities
 	(user_id, first_num, second_num, third_num, fourth_num, fifth_num, sixth_num,
 	seventh_num, eighth_num, ninth_num, tenth_num, label)
 	Values
-	(1, 5, 3, 0, 1, 0, 0, 0, 0, 0, 0, 'yum');
+	(1, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'yum');
+Insert Into DL_Activities
+	(user_id, first_num, second_num, third_num, fourth_num, fifth_num, sixth_num,
+	seventh_num, eighth_num, ninth_num, tenth_num, label)
+	Values
+	(1, 5, 0, 1, 0, 0, 0, 0, 0, 0, 0, 'yum');
+Insert Into DL_Activities
+	(user_id, first_num, second_num, third_num, fourth_num, fifth_num, sixth_num,
+	seventh_num, eighth_num, ninth_num, tenth_num, label)
+	Values
+	(1, 5, 1, 0, 0, 0, 0, 0, 0, 0, 0, 'yum');
+Insert Into DL_Activities
+	(user_id, first_num, second_num, third_num, fourth_num, fifth_num, sixth_num,
+	seventh_num, eighth_num, ninth_num, tenth_num, label)
+	Values
+	(1, 5, 2, 0, 0, 0, 0, 0, 0, 0, 0, 'yum');
+Insert Into DL_Activities
+	(user_id, first_num, second_num, third_num, fourth_num, fifth_num, sixth_num,
+	seventh_num, eighth_num, ninth_num, tenth_num, label)
+	Values
+	(1, 5, 2, 1, 0, 0, 0, 0, 0, 0, 0, 'yum');
+Insert Into DL_Activities
+	(user_id, first_num, second_num, third_num, fourth_num, fifth_num, sixth_num,
+	seventh_num, eighth_num, ninth_num, tenth_num, label)
+	Values
+	(1, 5, 2, 2, 0, 0, 0, 0, 0, 0, 0, 'yum');
+Insert Into DL_Activities
+	(user_id, first_num, second_num, third_num, fourth_num, fifth_num, sixth_num,
+	seventh_num, eighth_num, ninth_num, tenth_num, label)
+	Values
+	(1, 5, 2, 3, 0, 0, 0, 0, 0, 0, 0, 'yum');
+Insert Into DL_Activities
+	(user_id, first_num, second_num, third_num, fourth_num, fifth_num, sixth_num,
+	seventh_num, eighth_num, ninth_num, tenth_num, label)
+	Values
+	(1, 5, 2, 4, 0, 0, 0, 0, 0, 0, 0, 'yum');
 Insert Into DL_Activities
 	(user_id, first_num, second_num, third_num, fourth_num, fifth_num, sixth_num,
 	seventh_num, eighth_num, ninth_num, tenth_num, label)
 	Values
 	(1, 5, 3, 0, 0, 0, 0, 0, 0, 0, 0, 'yum');
+Insert Into DL_Activities
+	(user_id, first_num, second_num, third_num, fourth_num, fifth_num, sixth_num,
+	seventh_num, eighth_num, ninth_num, tenth_num, label)
+	Values
+	(1, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'yum');
