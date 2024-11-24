@@ -14,6 +14,13 @@
     - @credentials.py: Loads the configuration for the program to use.
     - @requirements.txt: The python packages to load into pip.
     - /b_auth: The flask blueprint to hold all authentication aspect of the software.
+      - @\_\_init\_\_.py: File for a python module.
+      - /classes: The classes for authentication.
+        - @\_\_init\_\_.py: File for a python module.
+      - /functions: The functions for authentication.
+        - @\_\_init\_\_.py: File for a python module.
+      - /static: The static files for authentication.
+      - /templates: The jinja templates for authentication.
     - /b_daily_log: The flask blueprint to hold the daily log tracking.
     - /classes: Holds the general classes for the software.
       - @\_\_init\_\_.py: File for a python module.
@@ -23,10 +30,13 @@
       - @load_credentials.py: Loads the credentials into python.
     - /static: The static assets.
       - /css: The css.
+        - @base.css: The base css for the project.
       - /html: The html.
       - /images: The images.
       - /js: The javascript.
     - /templates: The jinja2 templates for flask.
+      - @base.j2: The base jinja template that others build on top of.
+      - @home.j2: The home page for the tracking system.
   - /PostgreSQL: Files for creating the PostgreSQL database.
     - @Create_Table_Accounts.sql:  Creates the general database and the tables.
     - @Procedures_Triggers.sql: Procedures and triggers that handle what to do when data is inserted.
@@ -39,5 +49,6 @@
   - @documentation.md: The main documentation for the code of the software.
   - @information.md: Information on what tools and software is used in this software.
   - @project_structure.md: The file structure of this project.
-  - LICENSE: The license that this software is licenses under.
-  - README.md: The general readme of this project.
+  - @LICENSE: The license that this software is licenses under.
+  - @README.md: The general readme of this project.
+  - @template.py: A template python file with header and footer comments.

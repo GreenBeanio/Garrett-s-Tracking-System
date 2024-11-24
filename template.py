@@ -7,16 +7,7 @@
 # Author(s): [Garrett Johnson (GreenBeanio) - https://github.com/greenbeanio]
 # Maintainer: [Garrett Johnson (GreenBeanio) - https://github.com/greenbeanio]
 # Project Description: [This project is used to track a variety of purposes.]
-# File Description: [Stores credentials.]
-
-# My imports
-from functions.load_credentials import (
-    loadCredentials,
-)  # Function to load the credentials
-
-# Get the config and store it in memory as an object
-app_config = loadCredentials(__file__)  # Using the location of this main file
-
+# File Description: [Description of file]
 
 # Footer Comment
 # History of Contributions:
