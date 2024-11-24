@@ -78,6 +78,13 @@ def index() -> None:
     # return jsonify("hi")
 
 
+## Testing function
+from b_auth.functions.auth_functions import createUser
+
+createUser(
+    "test", "testpassword", None, None, app_config.postgre_con, app_config.logger
+)
+
 # Start the flask app
 if __name__ == "__main__":
     # If we're using SSL with Flask (Only use this for testing! On deployment do it through Gunicorn and Nginx)

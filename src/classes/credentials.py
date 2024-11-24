@@ -43,7 +43,7 @@ class Config:
         postgre_ca_file: pathlib.Path,
         postgre_key_file: pathlib.Path,
         postgre_cert_file: pathlib.Path,
-        postgre_con: psycopg2,
+        postgre_con: psycopg2.extensions.connection,
         # Redis
         redis_addr: str,
         redis_port: str,

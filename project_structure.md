@@ -18,8 +18,10 @@
       - @\_\_init\_\_.py: File for a python module.
       - /classes: The classes for authentication.
         - @\_\_init\_\_.py: File for a python module.
+        - @auth_classes.py: File for classes used for authorization.
       - /functions: The functions for authentication.
         - @\_\_init\_\_.py: File for a python module.
+        - @auth_functions.py: File for functions used for authorization.
       - /static: The static files for authentication.
       - /templates: The jinja templates for authentication.
     - /b_daily_log: The flask blueprint to hold the daily log tracking.
@@ -53,3 +55,5 @@
   - @LICENSE: The license that this software is licenses under.
   - @README.md: The general readme of this project.
   - @template.py: A template python file with header and footer comments.
+  - &@credentials.md: An untracked file that I'm keeping credentials in.
+  - @linux_setup.md: Instructions for setting up linux.

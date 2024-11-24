@@ -10,7 +10,7 @@
 # File Description: [The auth blueprint for flask]
 
 # My imports
-from credentials import app_config  # Loads the saved credentials
+from classes.credentials import Config  # The config class
 
 # Imports
 from flask import Blueprint
