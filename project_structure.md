@@ -14,6 +14,7 @@
     - @credentials.py: Loads the configuration for the program to use.
     - @requirements.txt: The python packages to load into pip.
     - /b_auth: The flask blueprint to hold all authentication aspect of the software.
+      - @auth.py: The main python file for the flask blueprint.
       - @\_\_init\_\_.py: File for a python module.
       - /classes: The classes for authentication.
         - @\_\_init\_\_.py: File for a python module.

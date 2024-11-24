@@ -14,7 +14,7 @@ from credentials import app_config  # Loads the credentials into an object
 from classes.credentials import Config  # The Config object
 
 # My Blueprints
-### Will go here
+from b_auth.auth import auth_bp
 
 ### Package Imports
 from flask import Flask
@@ -56,7 +56,7 @@ def createFlaskApp(config: Config) -> Flask:
 
 # Add blueprints to the flask apt
 def addBlueprints(app: Flask):
-    # flask_app.register_blueprint(auth_bp)
+    flask_app.register_blueprint(auth_bp)
     # flask_app.register_blueprint(tracker_bp)
     return app
 
